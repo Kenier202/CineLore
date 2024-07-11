@@ -18,10 +18,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      routerConfig: routes,
-      title: 'Flutter Demo',
-      theme: AppTheme().theme(),
+    return SafeArea(
+      child: MaterialApp.router(
+        debugShowCheckedModeBanner: false,
+        routerConfig: routes,
+        title: 'Flutter Demo',
+        theme: AppTheme().theme(),
+      ),
     );
   }
 }
