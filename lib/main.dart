@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:try80/config/routes/routes.dart';
-import 'package:try80/config/themes/App_Theme.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:try80/presentation/screens/barrel_screens.dart';
 
 void main() async {
   await dotenv.load(fileName: ".env");
+
   runApp(
-    const MyApp(),
+    const ProviderScope(
+      child: MyApp(),
+    ),
   );
 }
 

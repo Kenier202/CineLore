@@ -1,4 +1,3 @@
-
 class Movie {
   final bool adult;
   final String backdropPath;
@@ -29,6 +28,6 @@ class Movie {
     required this.title,
     required this.video,
     required this.voteAverage,
-    required this.voteCount
+    required this.voteCount,
   });
 }

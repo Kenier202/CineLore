@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:try80/presentation/screens/barrel_screens.dart';
 
-class MovieDb extends MovieDatasource {
+class MoviedbDatasource extends MovieDatasource {
   final dio = Dio(
     BaseOptions(
       baseUrl: 'https://api.themoviedb.org/3',

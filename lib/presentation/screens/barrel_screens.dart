@@ -4,3 +4,6 @@ export 'package:try80/domain/datasources/movie_datasources.dart';
 export 'package:try80/infrastructure/mappers/movie_mapper.dart';
 export 'package:try80/infrastructure/models/moviedb/moviedb_response.dart';
 export 'package:try80/domain/repositories/movie_repositories.dart';
+export 'package:try80/config/routes/routes.dart';
+export 'package:try80/config/themes/App_Theme.dart';
+export 'package:try80/infrastructure/datasource/movie_datasource_impl.dart';
