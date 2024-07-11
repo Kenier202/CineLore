@@ -7,3 +7,5 @@ export 'package:try80/domain/repositories/movie_repositories.dart';
 export 'package:try80/config/routes/routes.dart';
 export 'package:try80/config/themes/App_Theme.dart';
 export 'package:try80/infrastructure/datasource/movie_datasource_impl.dart';
+export 'package:try80/infrastructure/repository/movie_repository_impl.dart';
+export 'package:try80/presentation/providers/moviedb/movies_repository_provider.dart';
