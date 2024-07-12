@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:try80/config/helpers/humarn_formats.dart';
 
 import 'package:try80/presentation/screens/barrel_screens.dart';
 
@@ -109,16 +110,29 @@ class _Slide extends StatelessWidget {
                       ),
                     );
                   }
-
                   return child;
                 },
               ),
             ),
           ),
-          // SizedBox(
-          //   width: 150,
-          //   child: Text(movie.title),
-          // )
+          SizedBox(
+              width: 150,
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.star_border,
+                    color: Colors.yellow.shade800,
+                  ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  Text('${movie.voteAverage}'),
+                  const Spacer(),
+                  Text(
+                    HumanFormats.numbers(movie.popularity),
+                  ),
+                ],
+              ))
         ],
       ),
     );
