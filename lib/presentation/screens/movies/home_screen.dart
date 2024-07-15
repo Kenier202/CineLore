@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:try80/presentation/providers/moviedb/movies_slideshow_provider.dart';
 import 'package:try80/presentation/screens/barrel_screens.dart';
-import 'package:try80/presentation/screens/movies/movie_horizontal_listview.dart';
-import 'package:try80/presentation/screens/shared/custom_appbar.dart';
-import 'package:try80/presentation/screens/widgets/movies/MoviesSlideshow.dart';
 
 class HomeScreen extends StatelessWidget {
   static const name = "HomeScreen";

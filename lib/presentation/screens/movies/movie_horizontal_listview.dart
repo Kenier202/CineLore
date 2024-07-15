@@ -1,5 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:try80/config/helpers/humarn_formats.dart';
 import 'package:try80/presentation/screens/barrel_screens.dart';
 
@@ -32,7 +34,6 @@ class _MovieHorizontalListviewState extends State<MovieHorizontalListview> {
 
       if ((scrollController.position.pixels + 200) >=
           scrollController.position.maxScrollExtent) {
-        print("cargando pelis");
         widget.loadNextPage!();
       }
     });
@@ -138,7 +139,12 @@ class _Slide extends StatelessWidget {
                       ),
                     );
                   }
-                  return child;
+                  return GestureDetector(
+                    onTap: () {
+                      context.push("/movie/${movie.id}");
+                    },
+                    child: FadeIn(child: child),
+                  );
                 },
               ),
             ),
