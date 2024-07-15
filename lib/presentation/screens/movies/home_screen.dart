@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:try80/presentation/providers/moviedb/movies_slideshow_provider.dart';
 import 'package:try80/presentation/screens/barrel_screens.dart';
 import 'package:try80/presentation/screens/movies/movie_horizontal_listview.dart';
 import 'package:try80/presentation/screens/shared/custom_appbar.dart';
@@ -36,6 +37,8 @@ class _HomeViewState extends ConsumerState<_HomeView> {
   @override
   Widget build(BuildContext context) {
     final getNowPlayingMovies = ref.watch(nowPlayingMoviesProvider);
+    final slideShowMovies = ref.watch(moviesSlideShowProvider);
+
     return CustomScrollView(
       slivers: [
         const SliverAppBar(
@@ -50,12 +53,15 @@ class _HomeViewState extends ConsumerState<_HomeView> {
             (context, index) {
               return Column(
                 children: [
-                  MoviesSlideshow(movies: getNowPlayingMovies),
+                  MoviesSlideshow(movies: slideShowMovies),
                   MovieHorizontalListview(
                     movies: getNowPlayingMovies,
                     title: "En cines",
                     subtitle: "Viernes 12",
-                  )
+                    loadNextPage: () => ref
+                        .read(nowPlayingMoviesProvider.notifier)
+                        .loadNextPage(),
+                  ),
                 ],
               );
             },
