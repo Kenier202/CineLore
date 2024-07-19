@@ -1,6 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:try80/presentation/screens/movies/home_screen.dart';
-import 'package:try80/presentation/screens/widgets/movies/movie_screen.dart';
+import 'package:try80/presentation/screens/movies/movie_screen.dart';
 
 final routes = GoRouter(
   initialLocation: "/",
