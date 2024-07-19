@@ -20,8 +20,8 @@ class MovieScreenState extends ConsumerState<MovieScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final Movie? getInfoMovie = ref.watch(movieInfoProvider)[widget.movieId];
-    if (getInfoMovie == null) {
+    final Movie? movie = ref.watch(movieInfoProvider)[widget.movieId];
+    if (movie == null) {
       return const Scaffold(
         body: Center(
           child: CircularProgressIndicator(
@@ -34,7 +34,15 @@ class MovieScreenState extends ConsumerState<MovieScreen> {
       body: CustomScrollView(
         physics: const ClampingScrollPhysics(),
         slivers: [
-          _CustomSliverAppbar(movie: getInfoMovie),
+          _CustomSliverAppbar(movie: movie),
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (context, index) => _MovieDetails(
+                movie: movie,
+              ),
+              childCount: 1,
+            ),
+          ),
         ],
       ),
     );
@@ -131,6 +139,70 @@ class _GradientTop extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class _MovieDetails extends StatelessWidget {
+  final Movie movie;
+  const _MovieDetails({super.key, required this.movie});
+
+  @override
+  Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final textStyle = Theme.of(context).textTheme;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: Image.network(
+                  movie.posterPath,
+                  width: size.width * 0.4,
+                ),
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              SizedBox(
+                width: (size.width - 100) * 0.7,
+                child: Column(
+                  children: [
+                    Text(movie.title),
+                    Text(movie.overview),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 300,
+              ),
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Wrap(
+            children: [
+              ...movie.genreIds.map(
+                (e) => Container(
+                  margin: const EdgeInsets.only(right: 10),
+                  child: Chip(
+                    label: Text(e),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
