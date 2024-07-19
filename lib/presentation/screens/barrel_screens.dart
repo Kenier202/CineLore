@@ -16,3 +16,5 @@ export 'package:try80/presentation/screens/shared/custom_appbar.dart';
 export 'package:try80/presentation/screens/widgets/movies/movies_slideshow.dart';
 export 'package:try80/presentation/providers/moviedb/movies_slideshow_provider.dart';
 export 'package:try80/presentation/providers/moviedb/movie_info_provider.dart';
+export 'package:try80/infrastructure/models/moviedb/credits_response.dart';
+export 'package:try80/domain/entities/actor.dart';

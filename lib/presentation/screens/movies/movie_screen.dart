@@ -172,9 +172,16 @@ class _MovieDetails extends StatelessWidget {
               SizedBox(
                 width: (size.width - 100) * 0.7,
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(movie.title),
-                    Text(movie.overview),
+                    Text(
+                      movie.title,
+                      style: textStyle.titleLarge,
+                    ),
+                    Text(
+                      movie.overview,
+                      style: textStyle.bodyMedium,
+                    ),
                   ],
                 ),
               ),

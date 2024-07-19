@@ -1,4 +1,3 @@
-import 'package:try80/domain/entities/actor.dart';
 import 'package:try80/presentation/screens/barrel_screens.dart';
 
 class ActorMapper {
