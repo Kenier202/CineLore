@@ -21,3 +21,6 @@ export 'package:try80/domain/entities/actor.dart';
 export 'package:try80/domain/datasources/actors_datasource.dart';
 export 'package:try80/infrastructure/mappers/actor_mapper.dart';
 export 'package:try80/domain/repositories/actors_repository.dart';
+export 'package:try80/infrastructure/datasource/actor_moviedb_datasource.dart';
+export 'package:try80/infrastructure/repository/actor_repository_impl.dart';
+export 'package:try80/presentation/providers/actors/actors_repository_provider.dart';
