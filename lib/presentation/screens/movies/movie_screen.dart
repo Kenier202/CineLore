@@ -1,6 +1,7 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:try80/presentation/providers/actors/actors_movie_provider.dart';
+import 'package:try80/presentation/providers/barrel_providers.dart';
 import 'package:try80/presentation/screens/barrel_screens.dart';
 
 class MovieScreen extends ConsumerStatefulWidget {
@@ -76,6 +77,9 @@ class _CustomSliverAppbar extends StatelessWidget {
               child: Image.network(
                 movie.posterPath,
                 fit: BoxFit.cover,
+                loadingBuilder: (context, child, loadingProgress) {
+                  return FadeIn(child: child);
+                },
               ),
             ),
             const _Gradient(
@@ -239,28 +243,30 @@ class _ActorsByMovie extends ConsumerWidget {
         itemCount: actors.length,
         itemBuilder: (BuildContext context, int index) {
           final actor = actors[index];
-          return Container(
-            padding: const EdgeInsets.all(8),
-            width: 135,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                //imagen
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(20.0),
-                  child: Image.network(
-                    actor.profilePath,
-                    width: 145,
-                    height: 180,
+          return FadeInRight(
+            child: Container(
+              padding: const EdgeInsets.all(8),
+              width: 135,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  //imagen
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(20.0),
+                    child: Image.network(
+                      actor.profilePath,
+                      width: 145,
+                      height: 180,
+                    ),
                   ),
-                ),
-                // nombre
-                Text(
-                  actor.name,
-                  style: const TextStyle(fontWeight: FontWeight.w700),
-                ),
-                Text(actor.character!),
-              ],
+                  // nombre
+                  Text(
+                    actor.name,
+                    style: const TextStyle(fontWeight: FontWeight.w700),
+                  ),
+                  Text(actor.character!),
+                ],
+              ),
             ),
           );
         },

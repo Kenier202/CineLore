@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:try80/presentation/providers/barrel_providers.dart';
 import 'package:try80/presentation/screens/barrel_screens.dart';
 
 final nowPlayingMoviesProvider =
