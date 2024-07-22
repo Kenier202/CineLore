@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:try80/presentation/providers/actors/actors_movie_provider.dart';
 import 'package:try80/presentation/screens/barrel_screens.dart';
 
 class MovieScreen extends ConsumerStatefulWidget {
@@ -16,6 +17,7 @@ class MovieScreenState extends ConsumerState<MovieScreen> {
   void initState() {
     super.initState();
     ref.read(movieInfoProvider.notifier).loadMovie(widget.movieId);
+    ref.read(actorsMovieProvider.notifier).loadActor(widget.movieId);
   }
 
   @override
@@ -209,7 +211,60 @@ class _MovieDetails extends StatelessWidget {
             ],
           ),
         ),
+        _ActorsByMovie(
+          movieId: movie.id.toString(),
+        ),
       ],
+    );
+  }
+}
+
+class _ActorsByMovie extends ConsumerWidget {
+  final String movieId;
+  const _ActorsByMovie({required this.movieId});
+
+  @override
+  Widget build(BuildContext context, ref) {
+    final actorsMovie = ref.watch(actorsMovieProvider);
+    if (actorsMovie[movieId] == null) {
+      return const CircularProgressIndicator(
+        strokeWidth: 2,
+      );
+    }
+    final actors = actorsMovie[movieId]!;
+    return SizedBox(
+      height: 300,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: actors.length,
+        itemBuilder: (BuildContext context, int index) {
+          final actor = actors[index];
+          return Container(
+            padding: const EdgeInsets.all(8),
+            width: 135,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                //imagen
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(20.0),
+                  child: Image.network(
+                    actor.profilePath,
+                    width: 145,
+                    height: 180,
+                  ),
+                ),
+                // nombre
+                Text(
+                  actor.name,
+                  style: const TextStyle(fontWeight: FontWeight.w700),
+                ),
+                Text(actor.character!),
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 }
