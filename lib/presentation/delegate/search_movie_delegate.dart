@@ -1,4 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:async';
+
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:try80/config/helpers/humarn_formats.dart';
@@ -9,10 +11,33 @@ typedef SearchMoviesCallback = Future<List<Movie>> Function(String query);
 
 class SearchMovieDelegate extends SearchDelegate {
   final SearchMoviesCallback searchMovies;
-
+  final StreamController debounceMovies = StreamController.broadcast();
+  Timer? _debouncerTimer;
   SearchMovieDelegate({
     required this.searchMovies,
   });
+
+  void clearStreams() {
+    debounceMovies.close();
+  }
+
+  void _onQueryChange() {
+    print("el query cambio");
+
+    if (_debouncerTimer?.isActive ?? false) _debouncerTimer!.cancel();
+    _debouncerTimer = Timer(
+      const Duration(seconds: 1),
+      () async {
+        if (query.isEmpty) {
+          debounceMovies.add([]);
+        }
+
+        final List<Movie> movie = await searchMovies(query);
+
+        debounceMovies.add(movie);
+      },
+    );
+  }
 
   @override
   String get searchFieldLabel => "Buscar ";
@@ -38,7 +63,10 @@ class SearchMovieDelegate extends SearchDelegate {
   Widget? buildLeading(BuildContext context) {
     return FadeIn(
       child: IconButton(
-        onPressed: () => close(context, null),
+        onPressed: () {
+          clearStreams();
+          close(context, null);
+        },
         icon: const Icon(
           Icons.arrow_back_ios_new_outlined,
         ),
@@ -68,8 +96,10 @@ class SearchMovieDelegate extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    return FutureBuilder(
-      future: searchMovies(query),
+    _onQueryChange();
+    return StreamBuilder(
+      // future: searchMovies(query),
+      stream: debounceMovies.stream,
       builder: (context, snapshot) {
         final movies = snapshot.data ?? [];
 
@@ -78,9 +108,11 @@ class SearchMovieDelegate extends SearchDelegate {
           itemBuilder: (context, index) {
             final movie = movies[index];
             return _MovieItem(
-              movie: movie,
-              onMovieSelected: close,
-            );
+                movie: movie,
+                onMovieSelected: (context, movie) {
+                  clearStreams();
+                  close;
+                });
           },
         );
       },
