@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:try80/presentation/delegate/search_movie_delegate.dart';
-import 'package:try80/presentation/providers/moviedb/movies_repository_provider.dart';
+import 'package:try80/presentation/providers/barrel_providers.dart';
 
 class CustomAppbar extends ConsumerWidget {
   const CustomAppbar({super.key});
@@ -27,11 +27,18 @@ class CustomAppbar extends ConsumerWidget {
               IconButton(
                 onPressed: () {
                   final moviesRepository = ref.read(movieRepositoryProvider);
+                  final searchProvider = ref.read(searchMovieProvider);
 
                   showSearch(
+                    query: searchProvider,
                     context: context,
                     delegate: SearchMovieDelegate(
-                      searchMovies: moviesRepository.searchMovie,
+                      searchMovies: (query) {
+                        ref
+                            .read(searchMovieProvider.notifier)
+                            .update((state) => query);
+                        return moviesRepository.searchMovie(query);
+                      },
                     ),
                   ).then(
                     (movie) {
