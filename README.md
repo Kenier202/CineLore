@@ -8,8 +8,8 @@ Para obtener una copia del proyecto se debera ingresar al repositorio localizado
 Para una instalacion local se debera de incluir el proyecto en nuestro editor de codigo de preferencia, preparar un entorno de emulador de un dispositivo movil o el uso de uno externo para el inicio de la depuracion.
 
 ## Desarrollo
-Flutter
-Dart
+- Flutter
+- Dart
 
 ## Autor
 Kenier Morales
